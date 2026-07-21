@@ -1,0 +1,478 @@
+/* ==========================================================================
+   WEBTING - SISTEMA DE DISEÑO NEO-RETRO ARCADE / COMIC (NEOBRUTALISTA)
+   Paleta: Blanco Crema Base (#FAF9F6), Naranja Arcade (#FF5500) y Celeste (#00C2FF)
+   Estilo: Anti-IA, bordes negros de 3px, sombras paralelas sólidas y tipografía pixel-art.
+   ========================================================================== */
+
+/* Importación de fuentes: VT323 para títulos pixel-art y Plus Jakarta Sans para lectura */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=VT323&display=swap');
+
+:root {
+  /* Paleta Base Solicitada */
+  --bg-base: #FFFFFF;
+  --bg-surface: #FAF9F6;
+  --color-dark: #000000;
+  
+  /* Colores de Acento Vibrantes */
+  --color-orange: #FF5500;
+  --color-orange-hover: #FF7722;
+  --color-blue: #00C2FF;
+  --color-blue-hover: #33CFFF;
+  
+  /* Estilo Neobrutalista Fuerte */
+  --thick-border: 3px solid #000000;
+  --thin-border: 2px solid #000000;
+  --solid-shadow: 5px 5px 0px #000000;
+  --solid-shadow-hover: 8px 8px 0px #000000;
+  --solid-shadow-active: 2px 2px 0px #000000;
+  
+  /* Radios de Esquina Duros (Evitando formas ultra-redondeadas genéricas) */
+  --radius-sharp: 0px;
+  --radius-comic: 6px;
+  
+  /* Transiciones Rápidas y Bouncies */
+  --transition-snap: 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Reset General */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: var(--bg-surface);
+  /* Textura sutil estilo cómic impreso usando puntos */
+  background-image: radial-gradient(rgba(0, 0, 0, 0.03) 15%, transparent 16%);
+  background-size: 16px 16px;
+  color: var(--color-dark);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Tipografía de Encabezados (Pixel Consola VT323) */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'VT323', monospace;
+  font-weight: normal;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-dark);
+}
+
+/* Barra de Navegación Neobrutalista */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg-base);
+  border-bottom: var(--thick-border);
+  padding: 1rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+}
+
+.brand-icon-wrapper {
+  background: var(--color-orange);
+  border: var(--thin-border);
+  padding: 0.3rem 0.6rem;
+  box-shadow: 2px 2px 0px #000;
+}
+
+.brand-icon-svg {
+  width: 24px;
+  height: 24px;
+  fill: #000;
+  display: block;
+}
+
+.brand-title {
+  font-size: 2.2rem;
+  font-weight: normal;
+  line-height: 1;
+  text-shadow: 2px 2px 0px var(--color-blue);
+  color: var(--color-dark);
+  span {
+    color: var(--color-orange);
+  }
+}
+
+/* Buscador con Borde Negro Grueso */
+.search-box {
+  position: relative;
+  flex: 1;
+  max-width: 500px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.7rem 1.2rem 0.7rem 2.8rem;
+  background: var(--bg-base);
+  border: var(--thin-border);
+  border-radius: var(--radius-comic);
+  color: var(--color-dark);
+  font-size: 0.95rem;
+  outline: none;
+  font-weight: 600;
+  box-shadow: 3px 3px 0px #000;
+  transition: var(--transition-snap);
+}
+
+.search-input:focus {
+  box-shadow: 5px 5px 0px var(--color-orange);
+  transform: translate(-2px, -2px);
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.9rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  fill: var(--color-dark);
+  pointer-events: none;
+}
+
+/* Acciones de Navegación */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Botones Estilo Arcade / Teclado */
+.btn {
+  font-family: 'VT323', monospace;
+  font-size: 1.3rem;
+  padding: 0.5rem 1.4rem;
+  border-radius: var(--radius-comic);
+  border: var(--thin-border);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: normal;
+  text-decoration: none;
+  box-shadow: var(--solid-shadow);
+  transition: var(--transition-snap);
+}
+
+.btn:active {
+  transform: translate(3px, 3px);
+  box-shadow: var(--solid-shadow-active);
+}
+
+.btn-primary {
+  background: var(--color-orange);
+  color: #FFFFFF;
+}
+
+.btn-primary:hover {
+  background: var(--color-orange-hover);
+  transform: translate(-3px, -3px);
+  box-shadow: var(--solid-shadow-hover);
+}
+
+.btn-outline-blue {
+  background: var(--color-blue);
+  color: #000000;
+}
+
+.btn-outline-blue:hover {
+  background: var(--color-blue-hover);
+  transform: translate(-3px, -3px);
+  box-shadow: var(--solid-shadow-hover);
+}
+
+/* Insignia Admin */
+.admin-badge {
+  background: #FFD700;
+  border: var(--thin-border);
+  box-shadow: 2px 2px 0px #000;
+  padding: 0.25rem 0.75rem;
+  font-family: 'VT323', monospace;
+  font-size: 1.15rem;
+  color: #000;
+  display: none;
+  align-items: center;
+  gap: 0.4rem;
+  transform: rotate(-2deg);
+}
+
+.admin-badge-svg {
+  width: 16px;
+  height: 16px;
+  fill: #000;
+}
+
+/* Contenedor Principal */
+.main-content {
+  flex: 1;
+  padding: 2rem 2.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Banner Arcade Neobrutalista */
+.hero-banner {
+  background: var(--color-blue);
+  border: var(--thick-border);
+  border-radius: var(--radius-comic);
+  padding: 3rem;
+  margin-bottom: 2.5rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--solid-shadow);
+  /* Trama estilo cómic punteada superpuesta */
+  background-image: 
+    radial-gradient(rgba(0, 0, 0, 0.08) 15%, transparent 16%),
+    linear-gradient(135deg, rgba(255, 85, 0, 0.1) 0%, transparent 70%);
+  background-size: 12px 12px, 100% 100%;
+}
+
+.hero-text {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+}
+
+.hero-title {
+  font-size: 3.8rem;
+  line-height: 1.1;
+  color: #000;
+  margin-bottom: 0.8rem;
+  text-shadow: 3px 3px 0px #FFF;
+}
+
+.hero-subtitle {
+  color: #000;
+  font-weight: 700;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+/* Contenedor de Filtros Neobrutalista */
+.filters-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 2.5rem;
+  background: var(--bg-base);
+  padding: 1.2rem;
+  border-radius: var(--radius-comic);
+  border: var(--thin-border);
+  box-shadow: var(--solid-shadow);
+}
+
+.filter-row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.filter-row::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-label {
+  font-family: 'VT323', monospace;
+  font-size: 1.3rem;
+  color: var(--color-orange);
+  min-width: 110px;
+}
+
+.filter-chip {
+  padding: 0.4rem 1rem;
+  background: #FFFFFF;
+  border: var(--thin-border);
+  border-radius: var(--radius-comic);
+  color: #000;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: var(--transition-snap);
+}
+
+.filter-chip:hover, .filter-chip.active {
+  background: var(--color-blue);
+  transform: translate(-2px, -2px);
+  box-shadow: 3px 3px 0px #000;
+}
+
+.filter-chip.active-orange {
+  background: var(--color-orange);
+  color: #FFF;
+  transform: translate(-2px, -2px);
+  box-shadow: 3px 3px 0px #000;
+}
+
+/* Grilla de Tarjetas */
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 2.5rem;
+}
+
+/* Tarjetas de Juego Neo-Retro */
+.game-card {
+  background: var(--bg-base);
+  border: var(--thin-border);
+  border-radius: var(--radius-comic);
+  overflow: hidden;
+  position: relative;
+  transition: var(--transition-snap);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--solid-shadow);
+}
+
+/* Rotación Imperfecta Típica Humana */
+.game-card:nth-child(odd) {
+  transform: rotate(-1deg);
+}
+
+.game-card:nth-child(even) {
+  transform: rotate(1deg);
+}
+
+.game-card:hover {
+  transform: translateY(-8px) scale(1.02) rotate(0deg);
+  border-color: #000;
+  box-shadow: var(--solid-shadow-hover);
+}
+
+.card-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 190px;
+  overflow: hidden;
+  border-bottom: var(--thin-border);
+  background: #EEE;
+}
+
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition-snap);
+}
+
+/* Superposición Hover instantánea con micro-salto */
+.card-hover-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--color-blue);
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition-snap);
+  /* Trama de puntos cómic */
+  background-image: radial-gradient(rgba(0, 0, 0, 0.12) 15%, transparent 16%);
+  background-size: 10px 10px;
+  border-bottom: var(--thin-border);
+}
+
+.game-card:hover .card-hover-overlay,
+.game-card.active-touch .card-hover-overlay {
+  opacity: 1;
+  visibility: visible;
+}
+
+.overlay-description {
+  font-size: 0.95rem;
+  color: #000;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 1rem;
+}
+
+.overlay-btn {
+  font-family: 'VT323', monospace;
+  font-size: 1.3rem;
+  padding: 0.4rem 1.1rem;
+  background: var(--color-orange);
+  color: #FFF;
+  border: var(--thin-border);
+  box-shadow: 3px 3px 0px #000;
+  cursor: pointer;
+}
+
+.card-info {
+  padding: 1.2rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+
+.card-subject {
+  font-family: 'VT323', monospace;
+  font-size: 1.3rem;
+  color: var(--color-orange);
+}
+
+.card-title {
+  font-size: 1.4rem;
+  line-height: 1.2;
+  color: #000;
+  margin-top: 0.1rem;
+}
+
+/* Badges de Metadatos */
+.card-meta-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.4rem;
+}
+
+.meta-badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-comic);
+  font-size: 0.75rem;
+  font-weight: 800;
+  background: #FFFFFF;
+  border: var(--thin-border);
+  color: #000;
+}
+
+.meta-badge.difficulty-facil { background: #CCFFCC; }
+.meta-badge.difficulty-medio { background: #FFFFCC; }
+.meta-badge.difficulty-dificil { background: #FFCCCC; }
+
+/* Footer Comic */
+.footer {
+  text-align: center;
+  padding: 2rem;
+  background: var(--bg-base);
+  border-top: var(--thick-border);
+  margin-top: auto;
+}
+
+.footer p {
+  font-weight: 700;
+  font-size: 0.9rem;
+}

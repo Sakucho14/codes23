@@ -1,0 +1,61 @@
+[
+  {
+    "id": "game-1",
+    "title": "Math Racer 3D: Tablas de Multiplicar",
+    "subject": "Matemáticas",
+    "difficulty": "Medio",
+    "ageRange": "9-12",
+    "competency": "Cálculo mental rápido",
+    "logo": "https://images.unsplash.com/photo-1614680376593-902f749f7b6c?w=400&q=80",
+    "hoverDescription": "Compite a alta velocidad resolviendo operaciones matemáticas antes de que se agote el tiempo. ¡Ideal para agilidad mental!",
+    "iframeUrl": "https://playcanv.as/p/2O2rEa1B/",
+    "controls": [
+      { "key": "Flechas / WASD", "action": "Mover el vehículo" },
+      { "key": "Espacio", "action": "Activar Nitro al responder bien" },
+      { "key": "1 - 4", "action": "Seleccionar respuesta correcta" }
+    ],
+    "highScores": [
+      { "player": "Lucía_Math", "score": 9850, "date": "2026-07-20" },
+      { "player": "Carlos_Speed", "score": 9200, "date": "2026-07-19" },
+      { "player": "Sofía_Pro", "score": 8750, "date": "2026-07-18" }
+    ]
+  },
+  {
+    "id": "game-2",
+    "title": "Laberinto de la Célula Biológica",
+    "subject": "Ciencias",
+    "difficulty": "Difícil",
+    "ageRange": "12+",
+    "competency": "Identificación de organelos",
+    "logo": "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=400&q=80",
+    "hoverDescription": "Explora el interior de la célula eucariota, recolecta ATP y evita virus dañinos aprendiendo anatomía celular.",
+    "iframeUrl": "https://playcanv.as/p/2O2rEa1B/",
+    "controls": [
+      { "key": "W / A / S / D", "action": "Navegar por la membrana" },
+      { "key": "Mouse Clic", "action": "Escanear organelos" },
+      { "key": "E", "action": "Recolectar moléculas de ATP" }
+    ],
+    "highScores": [
+      { "player": "BioMaster_Ana", "score": 12400, "date": "2026-07-21" },
+      { "player": "Kevin_Cell", "score": 11150, "date": "2026-07-17" }
+    ]
+  },
+  {
+    "id": "game-3",
+    "title": "Word Quest: Desafío Gramatical",
+    "subject": "Lenguaje",
+    "difficulty": "Fácil",
+    "ageRange": "6-8",
+    "competency": "Ortografía y sinónimos",
+    "logo": "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=400&q=80",
+    "hoverDescription": "Encuentra sinónimos, antónimos y resuelve acertijos ortográficos para abrir cofres del tesoro legendarios.",
+    "iframeUrl": "https://playcanv.as/p/2O2rEa1B/",
+    "controls": [
+      { "key": "Teclado Alfanumérico", "action": "Escribir palabras" },
+      { "key": "Enter", "action": "Enviar respuesta" }
+    ],
+    "highScores": [
+      { "player": "Gabriel_Lexicon", "score": 15600, "date": "2026-07-21" }
+    ]
+  }
+]
