@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Webting - Plataforma de Juegos Educativos</title>
+  <meta name="description" content="Plataforma interactiva de juegos educativos con emulación en tiempo real y puntuaciones.">
+  
+  <!-- Hojas de Estilo Separadas -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/game.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+  <!-- NAVEGACIÓN PRINCIPAL -->
+  <header class="navbar">
+    <a href="index.html" class="brand">
+      <span class="brand-icon">W</span> WEBTING
+    </a>
+
+    <div class="search-box">
+      <span class="search-icon">
+        <svg class="icon-svg" viewBox="0 0 24 24"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+      </span>
+      <input type="text" id="searchInput" class="search-input" placeholder="Buscar por título, materia o descripción...">
+    </div>
+
+    <div class="nav-actions">
+      <span id="userBadge" class="user-badge" style="display: none;">
+        <svg class="icon-svg" viewBox="0 0 24 24"><path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        <span class="username-text">Usuario</span>
+      </span>
+
+      <span id="adminBadge" class="admin-badge" style="display: none;">ADMIN</span>
+
+      <button id="btnAdminPanel" class="btn btn-secondary" style="display: none;">PANEL ADMIN</button>
+      <button id="btnLoginNav" class="btn btn-primary">INICIAR SESIÓN</button>
+      <button id="btnLogout" class="btn btn-danger" style="display: none;">SALIR</button>
+    </div>
+  </header>
+
+  <!-- HERO BANNER -->
+  <section class="hero-banner">
+    <div class="hero-content">
+      <h1 id="heroTitle" class="hero-title">APRENDE JUGANDO EN VIVO</h1>
+      <p id="heroSubtitle" class="hero-subtitle">Plataforma de juegos educativos interactivos con emulación en tiempo real y puntuación por tiempo activo.</p>
+    </div>
+  </section>
+
+  <!-- SECCIÓN DE FILTROS -->
+  <section class="filter-section">
+    <div class="filter-card">
+      <!-- Materia -->
+      <div class="filter-row">
+        <span class="filter-label">MATERIA:</span>
+        <div class="chip-group">
+          <button class="chip active-orange" data-filter-type="category" data-filter-value="all">TODAS</button>
+          <button class="chip" data-filter-type="category" data-filter-value="Matemáticas">MATEMÁTICAS</button>
+          <button class="chip" data-filter-type="category" data-filter-value="Ciencias">CIENCIAS</button>
+          <button class="chip" data-filter-type="category" data-filter-value="Lenguaje">LENGUAJE</button>
+          <button class="chip" data-filter-type="category" data-filter-value="Historia">HISTORIA</button>
+        </div>
+      </div>
+
+      <!-- Dificultad -->
+      <div class="filter-row">
+        <span class="filter-label">DIFICULTAD:</span>
+        <div class="chip-group">
+          <button class="chip active" data-filter-type="difficulty" data-filter-value="all">TODAS</button>
+          <button class="chip" data-filter-type="difficulty" data-filter-value="Fácil">FÁCIL</button>
+          <button class="chip" data-filter-type="difficulty" data-filter-value="Medio">MEDIO</button>
+          <button class="chip" data-filter-type="difficulty" data-filter-value="Difícil">DIFÍCIL</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REJILLA DE JUEGOS -->
+  <main class="main-content">
+    <div id="gamesGrid" class="games-grid">
+      <!-- Carga dinámica mediante JS -->
+    </div>
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer class="footer">
+    <p>WEBTING v3.0 &copy; 2026 - Plataforma Educativa Pro</p>
+  </footer>
+
+  <!-- NOTIFICACIONES TOAST -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- MODAL 1: AUTENTICACIÓN (LOGIN / REGISTRO CON GMAIL) -->
+  <div id="authModal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2 id="authTitle" class="modal-title">INICIAR SESIÓN</h2>
+        <button class="btn-close-game" onclick="AuthEngine.closeAuthModal()">&times;</button>
+      </div>
+
+      <div class="admin-tab-bar">
+        <button id="tabLogin" class="admin-tab-btn active">Ingresar</button>
+        <button id="tabRegister" class="admin-tab-btn">Registrarse</button>
+      </div>
+
+      <div class="modal-body">
+        <form id="authForm" data-mode="login">
+          <div class="form-group">
+            <label class="form-label">Nombre de Usuario</label>
+            <input type="text" id="authUsername" class="form-input" placeholder="Ingresa tu usuario" required>
+          </div>
+
+          <div id="emailGroup" class="form-group" style="display: none;">
+            <label class="form-label">Correo Electrónico Gmail (@gmail.com)</label>
+            <input type="email" id="authEmail" class="form-input" placeholder="ejemplo@gmail.com">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Contraseña</label>
+            <input type="password" id="authPassword" class="form-input" placeholder="••••••••" required>
+          </div>
+
+          <!-- Sección de Verificación de Correo -->
+          <div id="verificationSection" class="form-group" style="display: none;">
+            <label class="form-label">Código de Verificación Enviado a Gmail</label>
+            <div style="display: flex; gap: 0.5rem;">
+              <input type="text" id="verificationCodeInput" class="form-input" placeholder="Código de 6 dígitos" maxlength="6">
+              <button type="button" id="btnVerifyCode" class="btn btn-secondary">Verificar</button>
+            </div>
+          </div>
+
+          <div style="margin-top: 1rem;">
+            <button type="submit" id="btnSubmitAuth" class="btn btn-primary" style="width: 100%;">ENTRAR</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: EMULADOR DE JUEGOS Y PUNTUACIÓN REAL -->
+  <div id="gameModal" class="game-modal">
+    <div class="game-modal-header">
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <h2 id="gameModalTitle" class="game-modal-title">Nombre del Juego</h2>
+        <div id="liveScoreBar" class="live-score-bar">
+          <span>PUNTAJE REAL:</span>
+          <span id="liveScoreValue">0 PTS</span>
+        </div>
+      </div>
+      <button id="btnCloseGame" class="btn-close-game">&times;</button>
+    </div>
+
+    <div class="game-modal-body">
+      <!-- Izquierda: Puntuaciones Top 10 -->
+      <aside class="game-sidebar-left">
+        <h3 class="sidebar-title">TOP PUNTUACIONES</h3>
+        <div id="gameScoresList" class="scores-list">
+          <!-- Carga dinámica -->
+        </div>
+      </aside>
+
+      <!-- Centro: Iframe Emulador -->
+      <main class="game-emulator-container">
+        <div class="iframe-wrapper">
+          <iframe id="gameIframe" class="game-iframe" src="" title="Emulador de Juego"></iframe>
+        </div>
+      </main>
+
+      <!-- Derecha: Controles -->
+      <aside class="game-sidebar-right">
+        <h3 class="sidebar-title">CONTROLES</h3>
+        <div id="gameControlsList" class="controls-list">
+          <!-- Carga dinámica -->
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- MODAL 3: PANEL ADMINISTRATIVO COMPLETO (4 PESTAÑAS) -->
+  <div id="adminPanelModal" class="modal-overlay">
+    <div class="modal-box modal-large">
+      <div class="modal-header">
+        <h2 class="modal-title">PANEL DE ADMINISTRACIÓN</h2>
+        <button class="btn-close-game" onclick="AdminEngine.closeAdminPanel()">&times;</button>
+      </div>
+
+      <div class="admin-tab-bar">
+        <button class="admin-tab-btn active" data-tab="dashboard">Estadísticas</button>
+        <button class="admin-tab-btn" data-tab="games">Juegos</button>
+        <button class="admin-tab-btn" data-tab="users">Usuarios</button>
+        <button class="admin-tab-btn" data-tab="settings">Personalización</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Pestaña 1: Dashboard -->
+        <div id="tabPanel-dashboard" class="admin-tab-panel">
+          <div id="statsContainer">
+            <!-- Carga dinámica -->
+          </div>
+        </div>
+
+        <!-- Pestaña 2: Juegos -->
+        <div id="tabPanel-games" class="admin-tab-panel" style="display: none;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h3 style="font-family: var(--font-heading); font-size: 1.5rem;">Gestión de Catálogo</h3>
+            <button id="btnCreateGame" class="btn btn-primary">+ AÑADIR NUEVO JUEGO</button>
+          </div>
+          <div id="adminGamesList">
+            <!-- Lista dinámica -->
+          </div>
+        </div>
+
+        <!-- Pestaña 3: Usuarios -->
+        <div id="tabPanel-users" class="admin-tab-panel" style="display: none;">
+          <h3 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 1rem;">Cuentas Registradas</h3>
+          <div id="adminUsersList">
+            <!-- Lista dinámica -->
+          </div>
+        </div>
+
+        <!-- Pestaña 4: Personalización -->
+        <div id="tabPanel-settings" class="admin-tab-panel" style="display: none;">
+          <form id="settingsForm">
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label">Color Primario de la Web</label>
+                <input type="color" id="settingPrimaryColor" class="form-input" value="#FF5500" style="height: 45px; cursor: pointer;">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Color Secundario de la Web</label>
+                <input type="color" id="settingSecondaryColor" class="form-input" value="#00C2FF" style="height: 45px; cursor: pointer;">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Título del Banner Principal</label>
+              <input type="text" id="settingBannerTitle" class="form-input" value="APRENDE JUGANDO EN VIVO">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Subtítulo del Banner</label>
+              <textarea id="settingBannerSubtitle" class="form-textarea" rows="2">Plataforma de juegos educativos interactivos con emulación en tiempo real.</textarea>
+            </div>
+
+            <div style="margin-top: 1rem;">
+              <button type="submit" class="btn btn-primary">GUARDAR PERSONALIZACIÓN</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 4: EDITOR / CREADOR DE JUEGOS -->
+  <div id="gameEditorModal" class="modal-overlay">
+    <div class="modal-box modal-large">
+      <div class="modal-header">
+        <h2 class="modal-title">EDITOR DE JUEGO</h2>
+        <button class="btn-close-game" onclick="AdminEngine.closeGameEditor()">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <form id="gameEditorForm">
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label">Título del Juego</label>
+              <input type="text" id="editorTitle" class="form-input" placeholder="Nombre del juego" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Materia</label>
+              <select id="editorSubject" class="form-select">
+                <option value="Matemáticas">Matemáticas</option>
+                <option value="Ciencias">Ciencias</option>
+                <option value="Lenguaje">Lenguaje</option>
+                <option value="Historia">Historia</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label">Dificultad</label>
+              <select id="editorDifficulty" class="form-select">
+                <option value="Fácil">Fácil</option>
+                <option value="Medio">Medio</option>
+                <option value="Difícil">Difícil</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Rango de Edad</label>
+              <select id="editorAgeRange" class="form-select">
+                <option value="5-7">5-7 Años</option>
+                <option value="6-8">6-8 Años</option>
+                <option value="9-12">9-12 Años</option>
+                <option value="12+">12+ Años</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Competencia Educativa</label>
+            <input type="text" id="editorCompetency" class="form-input" placeholder="Ej: Cálculo mental / Ortografía">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">URL del Juego (Iframe Emulador)</label>
+            <input type="url" id="editorIframeUrl" class="form-input" placeholder="https://..." required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">URL de Imagen / Logo</label>
+            <input type="url" id="editorLogoUrl" class="form-input" placeholder="https://...">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Breve Descripción (Visible al pasar el cursor)</label>
+            <textarea id="editorHoverDescription" class="form-textarea" rows="2"></textarea>
+          </div>
+
+          <!-- Configuración Avanzada de Iframe -->
+          <h4 style="font-family: var(--font-heading); font-size: 1.3rem; margin-top: 1rem; color: var(--site-primary);">Configuración Avanzada de Iframe</h4>
+          <div class="form-grid-2">
+            <div class="toggle-wrapper">
+              <span class="toggle-label">Permitir Desplazamiento (Scroll)</span>
+              <label class="toggle-switch">
+                <input type="checkbox" id="editorIframeScroll">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+
+            <div class="toggle-wrapper">
+              <span class="toggle-label">Permitir Pantalla Completa</span>
+              <label class="toggle-switch">
+                <input type="checkbox" id="editorIframeFullscreen" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-top: 0.5rem;">
+            <label class="form-label">Atributo Sandbox para Iframe (Opcional)</label>
+            <input type="text" id="editorIframeSandbox" class="form-input" placeholder="allow-scripts allow-same-origin">
+          </div>
+
+          <!-- Activar/Desactivar Puntuación -->
+          <div class="toggle-wrapper" style="margin-top: 0.5rem;">
+            <span class="toggle-label">Activar Sistema de Puntuación Real</span>
+            <label class="toggle-switch">
+              <input type="checkbox" id="editorScoringEnabled" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <!-- Mapeo de Controles -->
+          <h4 style="font-family: var(--font-heading); font-size: 1.3rem; margin-top: 1rem; color: var(--site-primary);">Mapeo de Controles del Juego</h4>
+          <div id="controlsContainer" style="display: flex; flex-direction: column; gap: 0.5rem;"></div>
+          <button type="button" id="btnAddControlRow" class="btn btn-secondary" style="margin-top: 0.5rem;">+ Añadir Control</button>
+
+          <div style="margin-top: 1.5rem;">
+            <button type="submit" class="btn btn-primary" style="width: 100%;">GUARDAR CAMBIOS DEL JUEGO</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts Separados -->
+  <script src="js/app.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/gameEngine.js"></script>
+  <script src="js/adminEngine.js"></script>
+</body>
+</html>
